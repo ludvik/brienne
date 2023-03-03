@@ -77,6 +77,12 @@ def remember(semantic_addr, timestamp, uuid_str, speaker, input):
         'sem_addr': semantic_addr}
     file_name = 'log_%s' % uuid_str;
     save_json('data/epi/%s' % file_name, json_str);
+
+###
+# recall a corpus of memory threads, according to current message
+def recall(cur_semantic_addr, top_k = 30):
+
+
     
 #####################################Main###############################
 
@@ -102,14 +108,12 @@ while True:
     uuid_str = str(uuid.uuid4().hex)[:512]
     remember(semantic_addr, timestamp, uuid_str, 'USER', raw_input)
 
-    print('s')    
-    # Step 4: Fetch memory threads from Pinecone according to recent 30 messages
-    #search_results = pinecone.query(index_name="brienne-mvp", data=embedding, 
-    #                                top_k=30, include_ids=True)
+    # Fetch memory threads from episodiary memory for top 30 threads
+    mem_context = recall(semantic_addr, top_k=30)
     #if len(search_results.ids) > 1:
     #    print("Recent memory threads:")
     #    for id in search_results.ids[1:]:
     #        print(id.decode("utf-8"))
 
-    
+     
 
